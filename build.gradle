@@ -1,7 +1,7 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.6.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
 }
 
 group = 'seroga'
@@ -9,28 +9,28 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 configurations {
-	developmentOnly
-	runtimeClasspath {
-		extendsFrom developmentOnly
-	}
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-cache'
-	implementation group: 'com.hazelcast', name: 'hazelcast', version: '3.12.6'
-	implementation group: 'javax.cache', name: 'cache-api', version: '1.1.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation group: 'com.hazelcast', name: 'hazelcast', version: '3.12.6'
+    implementation group: 'javax.cache', name: 'cache-api', version: '1.1.1'
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

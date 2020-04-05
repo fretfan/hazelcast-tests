@@ -1,5 +1,6 @@
 package seroga.hazelcasttests.app;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,13 +8,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoApi {
 
-    @GetMapping("/get/{num}")
-    public Integer getNumber(@PathVariable Integer num) {
-        return num;
-    }
+  @Autowired
+  private DemoService demoService;
 
-    @GetMapping("/clear")
-    public String clear() {
-        return "Cache cleared";
-    }
+  @GetMapping("/get/{num}")
+  public Integer getNumber(@PathVariable Integer num) {
+    return demoService.getNumber(num);
+  }
+
+  @GetMapping("/clear")
+  public String clear() {
+    return demoService.clearCache();
+  }
 }
