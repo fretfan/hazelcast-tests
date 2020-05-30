@@ -1,22 +1,40 @@
 package seroga.hazelcasttests.app;
 
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DemoService {
 
-  @Cacheable("numbers")
-  public Integer getNumber(Integer num) {
-    sleep(3000);
-    return num;
+  @Autowired
+  private HazelcastInstance hz;
+
+  public void putNum(Integer num) {
+    IMap<Object, Object> numbers2 = hz.getMap("numbers2");
+    numbers2.putIfAbsent(num, num);
   }
 
-  @CacheEvict(value = "numbers", allEntries = true)
-  public String clearCache() {
+  public Object getNumber2(Integer num) {
+    IMap<Object, Object> numbers2 = hz.getMap("numbers2");
+    Object numFetched = numbers2.get(num);
+    System.out.println(numFetched);
+    return numFetched;
+  }
+
+  public String clearAll() {
     System.out.println("Cache cleared");
+    IMap<Object, Object> numbers2 = hz.getMap("numbers2");
+    numbers2.evictAll();
     return "Cache cleared";
+  }
+
+  public String deleteNum(Integer num) {
+    System.out.println("deleted " + num);
+    IMap<Object, Object> numbers2 = hz.getMap("numbers2");
+    numbers2.delete(num);
+    return "deleted " + num;
   }
 
   private void sleep(Integer millis) {

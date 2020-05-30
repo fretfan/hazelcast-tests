@@ -12,12 +12,19 @@ public class DemoApi {
   private DemoService demoService;
 
   @GetMapping("/get/{num}")
-  public Integer getNumber(@PathVariable Integer num) {
-    return demoService.getNumber(num);
+  public Object getNumber(@PathVariable Integer num) {
+    return demoService.getNumber2(num);
   }
-
+  @GetMapping("/put/{num}")
+  public void putIntoMap(@PathVariable Integer num) {
+    demoService.putNum(num);
+  }
   @GetMapping("/clear")
-  public String clear() {
-    return demoService.clearCache();
+  public String clearAll() {
+    return demoService.clearAll();
+  }
+  @GetMapping("/delete/{num}")
+  public String delete(@PathVariable Integer num) {
+    return demoService.deleteNum(num);
   }
 }
