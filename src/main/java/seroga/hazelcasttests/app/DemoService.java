@@ -11,6 +11,11 @@ public class DemoService {
   @Autowired
   private HazelcastInstance hz;
 
+  public IMap<Object, Object> getAll() {
+    IMap<Object, Object> numbers2 = hz.getMap("numbers2");
+    return numbers2;
+  }
+
   public void putNum(Integer num) {
     IMap<Object, Object> numbers2 = hz.getMap("numbers2");
     numbers2.putIfAbsent(num, num);
@@ -27,6 +32,7 @@ public class DemoService {
     System.out.println("Cache cleared");
     IMap<Object, Object> numbers2 = hz.getMap("numbers2");
     numbers2.evictAll();
+    numbers2.clear();
     return "Cache cleared";
   }
 

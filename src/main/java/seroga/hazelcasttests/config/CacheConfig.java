@@ -3,8 +3,10 @@ package seroga.hazelcasttests.config;
 import com.hazelcast.config.CacheSimpleConfig;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.EntryListenerConfig;
+import com.hazelcast.config.EvictionPolicy;
 import com.hazelcast.config.MapConfig;
 import com.hazelcast.config.MaxSizeConfig;
+import com.hazelcast.config.MaxSizeConfig.MaxSizePolicy;
 import com.hazelcast.config.NetworkConfig;
 import com.hazelcast.core.EntryEvent;
 import com.hazelcast.core.MapEvent;
@@ -28,7 +30,6 @@ public class CacheConfig {
 //cacheConfig.setExpiryPolicyFactory()
     CacheSimpleConfig cacheSimpleConfig = new CacheSimpleConfig();
     cacheSimpleConfig.setName("numbers");
-//    cacheSimpleConfig.setCacheEntryListeners()
 
     NetworkConfig networkConfig = new NetworkConfig();
     networkConfig.setPortCount(5);
@@ -38,16 +39,15 @@ public class CacheConfig {
     Config config = new Config();
     config.setNetworkConfig(networkConfig);
     config.addCacheConfig(cacheSimpleConfig);
-//    config.addCacheConfig(cacheConfig);
-//    config.addCacheConfig(cacheConfig);
-//        config.setInstanceName("hazelcast-instance")
+
     MapConfig mapConfig = new MapConfig()
         .setName("numbers2")
-        .addEntryListenerConfig(new EntryListenerConfig(new Num2Listener(), true, true))
-        .setMaxSizeConfig(new MaxSizeConfig(200, MaxSizeConfig.MaxSizePolicy.FREE_HEAP_SIZE));
-
+        .setTimeToLiveSeconds(60)
+        .addEntryListenerConfig(new EntryListenerConfig(new Num2Listener(), true, false))
+        .setMaxSizeConfig(new MaxSizeConfig(4, MaxSizePolicy.PER_NODE)); // todo: this not working???
     config.addMapConfig(mapConfig);
-//
+
+    // todo JCache with type safety
     return config;
   }
 
