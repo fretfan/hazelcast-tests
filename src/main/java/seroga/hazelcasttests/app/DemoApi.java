@@ -1,6 +1,7 @@
 package seroga.hazelcasttests.app;
 
 import com.hazelcast.core.IMap;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,16 @@ public class DemoApi {
 
   @Autowired
   private DemoService demoService;
+
+  @GetMapping("/asd/{key}")
+  public String getAsd(@PathVariable String key) {
+    return demoService.getAsd(key, Arrays.asList("asd", "das", "dasf"));
+  }
+
+  @GetMapping("/asd/remove")
+  public String removeAsd() {
+    return demoService.removeAsd();
+  }
 
   @GetMapping("/getAll")
   public IMap<Object, Object> getAll() {
