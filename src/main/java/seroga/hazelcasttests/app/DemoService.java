@@ -2,10 +2,8 @@ package seroga.hazelcasttests.app;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
-import com.hazelcast.spring.cache.HazelcastCacheManager;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -16,15 +14,13 @@ public class DemoService {
   @Autowired
   HazelcastInstance hz;
 
-//  @Cacheable(value = "asd", cacheManager = "cacheManager")
-  @Cacheable(value = "asd")
-  public String getAsd(String key, List<String> list) {
-    sleep(3000);
+  @Cacheable(value = "numbers-map")
+  public String getAsd(String key, List<String> list) { // list just to get complex key
+    sleep(1000);
     return key;
   }
 
-//  @CacheEvict(value = "asd", allEntries = true, cacheManager = "cacheManager")
-  @CacheEvict(value = "asd", allEntries = true)
+  @CacheEvict(value = "numbers-map", allEntries = true)
   public String removeAsd() {
     return "Removed";
   }

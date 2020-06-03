@@ -19,6 +19,9 @@
     <entry-listeners>
       <entry-listener>seroga.hazelcasttests.config.ExampleEntryListener</entry-listener>
     </entry-listeners>
+<!--    <backup-count>0</backup-count>-->
+<!--    <async-backup-count>1</async-backup-count>-->
+<!--    <read-backup-data>true</read-backup-data>-->
   </map>
 
   <cache name="asd">
